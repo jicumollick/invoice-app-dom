@@ -1,5 +1,4 @@
 
-
 document.getElementById('detail-submit-btn').addEventListener('click' , function(){
     let buyerDetails = document.getElementById('buyer-details-input').value ;
 
@@ -35,6 +34,8 @@ document.getElementById('add-details-btn').addEventListener('click', function(){
     td2.innerText = itemQty;
     td3.innerText = parseFloat(itemPrice) * parseFloat(itemQty);
 
+    td3.classList.add('item-total');
+
     tr.appendChild(th);
     tr.appendChild(td1);
     tr.appendChild(td2);
@@ -47,5 +48,39 @@ document.getElementById('add-details-btn').addEventListener('click', function(){
     document.getElementById('item-quantity-input').value = "";
 
     
-    
+    subTotalCalculation();
+    totalCalculation();
+
 })
+
+function totalCalculation(){
+    const subTotal = subTotalCalculation();
+
+    const subTotalDisplay = document.getElementById('sub-total');
+    subTotalDisplay.innerText = subTotal; 
+
+    const tax = parseFloat( subTotal * .2);
+    document.getElementById('tax').innerText = tax;
+
+    const grandTotal = subTotal + tax;
+
+    document.getElementById('grand-total').innerText = grandTotal; 
+    document.getElementById('grand-total-2').innerText = grandTotal; 
+
+}
+
+function subTotalCalculation(){
+    
+let total = 0;
+
+    const cost = document.getElementsByClassName('item-total');
+
+    for (let index = 0; index < cost.length; index++) {
+        const element = cost[index];
+        
+        const price = parseFloat(element.innerText);
+        
+        total+= price;
+    }
+    return total;
+}
