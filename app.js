@@ -13,6 +13,17 @@ document.getElementById('add-details-btn').addEventListener('click', function(){
     let itemPrice = document.getElementById('item-price-input').value;
     let itemQty = document.getElementById('item-quantity-input').value;
 
+    if(itemName == ''){
+        itemName = "Unknown";
+
+    }else if(itemPrice == '' || itemPrice < 0 ){
+        itemPrice = 0;
+
+    }else if(itemQty == '' || itemQty < 0){
+
+        itemQty = 0;
+    }
+
 
     let infoTable = document.getElementById('info-table');
 
@@ -60,7 +71,8 @@ function totalCalculation(){
     subTotalDisplay.innerText = subTotal; 
 
     const tax = parseFloat( subTotal * .2);
-    document.getElementById('tax').innerText = tax;
+    document.getElementById('tax').innerText = tax.toFixed(2);
+    document.getElementById('tax-2').innerText = tax.toFixed(2);
 
     const grandTotal = subTotal + tax;
 
